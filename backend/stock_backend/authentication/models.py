@@ -5,12 +5,11 @@ from purchase.models import Purchases
 from purchase.models import Wallet
 
 class Users(BaseModel):
-    id:str
+    _id:str
     full_name:str
     password:str
     phone:str
     email:str
-    profile:str
     create_at:datetime
     purchases:List[Purchases]
     wallet:List[Wallet]

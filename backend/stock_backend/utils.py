@@ -1,5 +1,5 @@
 from pymongo import MongoClient
-from .stock_backend.config import DB_STRING
+from stock_backend.config import DB_STRING
 
 client = MongoClient(DB_STRING)
 db = client['Stock']

@@ -2,10 +2,11 @@ from rest_framework.views import APIView
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.permissions import AllowAny,IsAuthenticated
+from rest_framework.permissions import AllowAny
 from rest_framework_simplejwt.tokens import RefreshToken,AccessToken
 from rest_framework_simplejwt.views import TokenRefreshView
 from controller.authenticationCtrl import Authorization
+
 from .serializers import SignupSerializer,LoginSerializer,RefreshSerializer
 from .models import Users
 
@@ -16,7 +17,6 @@ class Signup(APIView):
     
     def post(self,request:Request):
         try:
-            print("hi")
             serializers = SignupSerializer(data=request.data)
             
             auth = Authorization()
@@ -54,11 +54,10 @@ class Signup(APIView):
                 return Response(response,status=status.HTTP_400_BAD_REQUEST) 
             
         except Exception as e:
-            print(e)
             response = {
                 "metadata":{
                     "success":False,
-                    "message":"error happend please try again later and call us.",
+                    "message":str(e),
                 },
                 "body":{
                     "type":"error"
@@ -68,7 +67,6 @@ class Signup(APIView):
         
         
 class Login(APIView):
-    permission_classes = [AllowAny]
     
     def post(self,request):
         try:
@@ -78,13 +76,7 @@ class Login(APIView):
             
             if serializers.is_valid() :
                 values = serializers.validated_data
-                # auth.login(values=values)
-                print("hi")
-                user = auth.login(values=values)
-                userObj = Users.from_dict(user)
-                print(userObj.id)
-                refresh = RefreshToken.for_user(userObj)
-                access = AccessToken.for_user(userObj)
+                user,token = auth.login(values=values)
                 response = {
                     "metadata":{
                         "success":True,
@@ -92,8 +84,7 @@ class Login(APIView):
                     },
                     "body":{
                         "data" : user,
-                        "refreshToken":str(refresh),
-                        "accessToken":str(access),
+                        "token":token,
                         "type":"object"
                     }
                 }
@@ -101,7 +92,6 @@ class Login(APIView):
                 
                 return Response(response,status=status.HTTP_200_OK)
             else :
-   
                 response = {
                     "metadata":{
                         "success":False,
@@ -120,7 +110,7 @@ class Login(APIView):
             response = {
                 "metadata":{
                     "success":False,
-                    "message":"error happend please try again later and call us.",
+                    "message":str(e),
                 },
                 "body":{
                     "type":"error"
@@ -128,54 +118,20 @@ class Login(APIView):
             }
             return Response(response,status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
-class RefreshTheToken(TokenRefreshView):
-    
-    serializer_class = RefreshSerializer
-    
-    def post(self,request,*args,**kwargs):
-        try:
-            serializer = RefreshSerializer(data=request.data)
-            
-            if serializer.is_valid():
-                old_refresh = serializer.validated_data.get('refresh')
-                refresh = RefreshToken(old_refresh)
-                access = refresh.access_token
-                response = {
-                        "metadata":{
-                            "success":True,
-                            "message":"succesfully refreshed token"
-                        },
-                        "body":{
-                            "refreshToken":str(refresh),
-                            "accessToken":str(access),
-                            "type":"object"
-                        }
-                    }
-                    
-                    
-                return Response(response,status=status.HTTP_200_OK)
-            else:
-                response = {
-                        "metadata":{
-                            "success":False,
-                            "message":"input validation failed."
-                        },
-                        "body":{
-                            "error":"validation error",
-                            "type":"error"
-                        }
-                    }
         
-                return Response(response,status=status.HTTP_400_BAD_REQUEST) 
-        except Exception as e:
-            print(str(e))
-            response = {
-                "metadata":{
-                    "success":False,
-                    "message":str(e),
-                },
-                "body":{
-                    "type":"error",
-                }
+class NotAutenticated(APIView):
+    
+    def get(self,request):
+        response = {
+            "metadata":{
+                "success":False,
+                "message":"Authentication Failed"
+            },
+            "body":{
+                "type":"error"
             }
-            return Response(response,status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        }
+        
+        
+        return Response(response,status=status.HTTP_401_UNAUTHORIZED)
+    

@@ -19,10 +19,11 @@ from django.urls import path,include
 import authentication
 import purchase
 import user
-
+import stocks
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include("authentication.urls")),
     path('purchases/', include("purchase.urls")),
-    path('users/', include("user.urls"))
+    path('users/', include("user.urls")),
+    path('stock/', include("stocks.urls"))
 ]

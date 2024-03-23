@@ -18,9 +18,11 @@ from django.contrib import admin
 from django.urls import path,include
 import authentication
 import purchase
+import user
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include("authentication.urls")),
-    path('purchases/', include("purchase.urls"))
+    path('purchases/', include("purchase.urls")),
+    path('users/', include("user.urls"))
 ]

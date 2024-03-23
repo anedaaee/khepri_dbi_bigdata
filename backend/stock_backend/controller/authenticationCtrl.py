@@ -17,6 +17,7 @@ class Authorization:
             hash = bcrypt.hashpw(bytes,salt=salt)
             values['password'] = hash
             values['create_at'] = datetime.now()
+            values['is_active'] = True
             values['purchases'] = []
             values['wallet'] = []
             

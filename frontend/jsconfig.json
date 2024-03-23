@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "baseUrl": "."
+  },
+  "include": [
+    "src"
+, "../../gitBootstrap/materio-mui-react-nextjs-admin-template-free/javascript-version/src/layouts/UserLayout2.js"  ]
+}

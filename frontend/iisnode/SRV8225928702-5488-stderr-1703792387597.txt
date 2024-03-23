@@ -1,0 +1,9 @@
+warn  - Invalid next.config.js options detected: 
+  - The value at .experimental has an unexpected property, jsconfigPaths, which is not in the list of allowed properties (adjustFontFallbacks, allowMiddlewareResponseBody, amp, appDir, browsersListForSwc, cpus, craCompat, disableOptimizedLoading, disablePostcssPresetEnv, esmExternals, externalDir, fallbackNodePolyfills, forceSwcTransforms, fullySpecified, gzipSize, incrementalCacheHandlerPath, isrFlushToDisk, isrMemoryCacheSize, largePageDataBytes, legacyBrowsers, manualClientBasePath, modularizeImports, newNextLinkBehavior, nextScriptWorkers, optimizeCss, optimisticClientCache, outputFileTracingRoot, pageEnv, profiling, proxyTimeout, runtime, scrollRestoration, serverComponents, sharedPool, skipMiddlewareUrlNormalize, skipTrailingSlashRedirect, sri, swcFileReading, swcMinify, swcMinifyDebugOptions, swcPlugins, swcTraceProfiling, urlImports, workerThreads).
+
+See more info here: https://nextjs.org/docs/messages/invalid-next-config
+warn  - You have enabled experimental features (esmExternals, jsconfigPaths) in next.config.js.
+warn  - Experimental features are not covered by semver, and may cause unexpected or broken application behavior. Use at your own risk.
+
+(node:5488) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)

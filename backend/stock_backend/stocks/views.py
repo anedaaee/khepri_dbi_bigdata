@@ -16,7 +16,7 @@ class Stocks(APIView):
                     "success":True,
                     "message":"succesfull,"
                 },
-                "data":{
+                "body":{
                     "type":"array",
                     "stock":stocks
                 }
@@ -42,7 +42,7 @@ class Stock(APIView):
     def get(self,request:Request):
         try:
             
-            serializer = StockSerializer(data=request.data)
+            serializer = StockSerializer(data=request.query_params)
             stockCtrl = StockCtrl()
             if serializer.is_valid():
                 values = serializer.validated_data
@@ -52,9 +52,9 @@ class Stock(APIView):
                         "success":True,
                         "message":"succesfull,"
                     },
-                    "data":{
+                    "body":{
                         "type":"object",
-                        "stock":stock,
+                        "stock":stock[0],
                         "history":history
                     }
                 }    
@@ -62,7 +62,6 @@ class Stock(APIView):
                 return Response(response,status=status.HTTP_200_OK)
     
             else :
-   
                 response = {
                     "metadata":{
                         "success":False,

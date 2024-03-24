@@ -14,29 +14,29 @@ const navigation = () => {
         icon: HomeOutline,
         path: '/pages/admin'
       },
+      // {
+      //   title: 'Orders',
+      //   icon: OrderBoolAscendingVariant,
+      //   path: '/pages/admin/orders'
+      // },
       {
-        title: 'Orders',
-        icon: OrderBoolAscendingVariant,
-        path: '/pages/admin/orders'
+        sectionTitle: 'account'
       },
       {
-        title: 'Users',
+        title: 'My Data',
         icon: AccountCogOutline,
-        path: '/pages/admin/users'
+        path: '/pages/admin/account'
       },
-      {
-        sectionTitle: 'actions'
-      },
-      {
-        title: 'Add Order',
-        icon: PlusBoxOutline,
-        path: '/pages/admin/add-order',
-      },
-      {
-        title: 'New User',
-        icon: AccountPlusOutline,
-        path: '/pages/admin/new-user',
-      },
+      // {
+      //   title: 'Add Order',
+      //   icon: PlusBoxOutline,
+      //   path: '/pages/admin/add-order',
+      // },
+      // {
+      //   title: 'New User',
+      //   icon: AccountPlusOutline,
+      //   path: '/pages/admin/new-user',
+      // },
     ]
 
   // }else{

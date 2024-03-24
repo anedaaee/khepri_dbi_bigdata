@@ -34,31 +34,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 
 
-const UserTable = () => {
-  const [loading,setLoading] = useState(true)
-  const [userData,setUserData] = useState([])
+const UserTable = (props) => {
   
-  const fetchData = async() => {
-    try{
-      const ordersDataAPI = 
-        await api('get',
-                `/User/GetUsers?token=${localStorage.getItem('authToken-oilyfan')}`,{})
-        
-      
-      console.log(ordersDataAPI.data.users);
-      setUserData(ordersDataAPI.data.users)
-      setLoading(false)
-    }catch(err){
-      console.log(err);
-    }
-  }
-  useEffect(() => {
-    try{
-      fetchData()
-    }catch(err){
-
-    }
-  } , [])
   
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -71,58 +48,28 @@ const UserTable = () => {
   }
   
   return (
-    <div>
-      {
-        loading?
-        (
-          <div style={{width:'100%',display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center'}}>
-            <img src='/loading.gif' alt='loading' style={{width:'20%'}}/> 
-            <p style={{color:'#ff5358'}}>Loading...</p>
-          </div>
-        ):
-        (
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 700 }} aria-label='simple table'>
               <TableHead>
                 <TableRow>
-                  <TableCell align='left'>Username</TableCell>
-                  <TableCell align='left'>Password</TableCell>
-                  <TableCell align='left'>Name</TableCell>
-                  <TableCell align='left'>Mobile</TableCell>
-                  <TableCell align='center'>Created At</TableCell>
-                  <TableCell align='center'>Modified At</TableCell>
-                  <TableCell align='center'>Last Login</TableCell>
-                  <TableCell align='center'>Admin</TableCell>
-                  <TableCell align='center'>Action</TableCell>
+                  <TableCell align='left'>Stock Id</TableCell>
+                  <TableCell align='left'>Number</TableCell>
+                  <TableCell align='left'>Date</TableCell>
+                  <TableCell align='left'>purchase/sale</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {userData.map(row => (
-                  <TableRow key={row.id}>
-                    <TableCell align='left' component='th' scope='row'>
-                      {row.username}
-                    </TableCell>
-                    <TableCell align='left'>{row.password}</TableCell>
-                    <TableCell align='left'>{row.firstname} {row.lastname}</TableCell>
-                    <TableCell align='left'>{row.mobileNo?row.mobileNo:'---'}</TableCell>
-                    <TableCell align='center'>{formatDate(row.createdAt)}</TableCell>
-                    <TableCell align='center'>{formatDate(row.modifiedAt)}</TableCell>
-                    <TableCell align='center'>{formatDate(row.lastLogin)}</TableCell>
-                    <TableCell align='center'>{row.adminPrivilage?'yes':'no'}</TableCell>
-                    <TableCell align='center'>
-                      <Link href={`/pages/admin/show-user?id=${row.id}`}>
-                      Details
-                      </Link>
-                    </TableCell>
+                {props.purchase.map(row => (
+                  <TableRow key={row._id}>
+                    <TableCell align='left'>{row.stock}</TableCell>
+                    <TableCell align='left'>{row.number}</TableCell>
+                    <TableCell align='left'>{formatDate(row._id)}</TableCell>
+                    <TableCell align='left'>{row.purchaseORsale}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
           </TableContainer>
-        )
-      }
-    </div>
-    
   )
 }
 

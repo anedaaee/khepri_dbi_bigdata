@@ -2,40 +2,44 @@ import axios from "axios";
 
 import { API_KEY } from "../../../src/config";
 
-const api = async (method,url,data) => {
+const api = async (method,url,data,secure) => {
     try{
+        let token
+        if (secure){
+            token = localStorage.getItem('authToken-khepri')
+        }
         let config = {
             method : method,
             url : `${API_KEY}${url}`,
             maxBodyLength: Infinity,
             data:data,
-        }
-        let result = await axios.request(config)
-       
-        if(result.data !== undefined){
-            if(result.data.status == 2){
-                return result.data
-            }else if(result.data.status == 1){
-                return result.data
-            }else if(result.data.status == 0){
-                return result.data
-            }else if(result.data.status == -1){
-                if(result.data.message == 'Access Denied'){
-                    window.location.href = '/pages/user'
-                }else if(result.data.message=='Invalid Token'){
-                    localStorage.clear()
-                    window.location.href = '/'
-                }
-               
-                return result.data
-            }else if(result.data.status == -2){
-                return {
-                    error:true,
-                    message : 'Username or Password is incorrect'
-                }
+            headers : 
+            secure?
+            {
+                Authorization : `Bearer ${token}`
+            }
+            :
+            {
+
             }
         }
-    }catch(err){throw err}
+        let result = await axios.request(config)
+        console.log(result);
+        console.log(result.status);
+        if(result.status == 200 || result.status == 201){
+            return result.data.body
+        }else if(result.status == 400){
+            alert(result.data.metadata.message)
+        }else if(result.status == 401){
+            alert("unAuthorized")
+            window.location.href = '/'
+        }else if(result.status == 500){
+            
+            alert(result.data.metadata.message)
+        }
+    }catch(err){    
+        throw err
+    }
 }
 
 

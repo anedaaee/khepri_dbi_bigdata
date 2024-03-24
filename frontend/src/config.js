@@ -1,1 +1,1 @@
-export const API_KEY = 'https://localhost:8000'
+export const API_KEY = 'http://192.168.30.71:8000'

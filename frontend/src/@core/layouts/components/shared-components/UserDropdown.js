@@ -49,11 +49,9 @@ const UserDropdown = () => {
     setButtonLoading(true)
     try{
       e.preventDefault()
-      const result = await api('post',`/Account/Logout?token=${localStorage.getItem('authToken-oilyfan')}`,{}) 
-      if(result){
-        window.localStorage.clear()
-        window.location.href = '/'
-      }
+      window.localStorage.clear()
+      window.location.href = '/'
+    
     }catch(err){
       console.log(err);
       
@@ -77,9 +75,10 @@ const UserDropdown = () => {
 
   const fetchData = async () => {
     try{
-      const result = await api('get',`/User/WhoAmI?token=${localStorage.getItem('authToken-oilyfan')}`,{}) 
+      const result = await api('get',`/users/user`,{},true) 
+      
       if(result){
-        setUser(result.data.user)
+        setUser(result.user)
         console.log(result);
       }
     }catch(err){
@@ -128,10 +127,7 @@ const UserDropdown = () => {
               <Avatar alt='John Doe' src='/images/avatars/1.png' sx={{ width: '2.5rem', height: '2.5rem' }} />
             </Badge>
             <Box sx={{ display: 'flex', marginLeft: 3, alignItems: 'flex-start', flexDirection: 'column' }}>
-              <Typography sx={{ fontWeight: 600 }}>{user.firstname} {user.lastname}</Typography>
-              <Typography variant='body2' sx={{ fontSize: '0.8rem', color: 'text.disabled' }}>
-                {user.adminPrivilage?'Admin':''}
-              </Typography>
+              <Typography sx={{ fontWeight: 600 }}>{user.full_name}</Typography>
             </Box>
           </Box>
         </Box>

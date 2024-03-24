@@ -9,120 +9,40 @@ import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
 import Typography from '@mui/material/Typography'
 import TableContainer from '@mui/material/TableContainer'
+import { Link } from 'mdi-material-ui'
 
-const rows = [
-  {
-    age: 27,
-    status: 'current',
-    date: '09/27/2018',
-    name: 'Sally Quinn',
-    salary: '$19586.23',
-    email: 'eebsworth2m@sbwire.com',
-    designation: 'Human Resources Assistant'
-  },
-  {
-    age: 61,
-    date: '09/23/2016',
-    salary: '$23896.35',
-    status: 'professional',
-    name: 'Margaret Bowers',
-    email: 'kocrevy0@thetimes.co.uk',
-    designation: 'Nuclear Power Engineer'
-  },
-  {
-    age: 59,
-    date: '10/15/2017',
-    name: 'Minnie Roy',
-    status: 'rejected',
-    salary: '$18991.67',
-    email: 'ediehn6@163.com',
-    designation: 'Environmental Specialist'
-  },
-  {
-    age: 30,
-    date: '06/12/2018',
-    status: 'resigned',
-    salary: '$19252.12',
-    name: 'Ralph Leonard',
-    email: 'dfalloona@ifeng.com',
-    designation: 'Sales Representative'
-  },
-  {
-    age: 66,
-    status: 'applied',
-    date: '03/24/2018',
-    salary: '$13076.28',
-    name: 'Annie Martin',
-    designation: 'Operator',
-    email: 'sganderton2@tuttocitta.it'
-  },
-  {
-    age: 33,
-    date: '08/25/2017',
-    salary: '$10909.52',
-    name: 'Adeline Day',
-    status: 'professional',
-    email: 'hnisius4@gnu.org',
-    designation: 'Senior Cost Accountant'
-  },
-  {
-    age: 61,
-    status: 'current',
-    date: '06/01/2017',
-    salary: '$17803.80',
-    name: 'Lora Jackson',
-    designation: 'Geologist',
-    email: 'ghoneywood5@narod.ru'
-  },
-  {
-    age: 22,
-    date: '12/03/2017',
-    salary: '$12336.17',
-    name: 'Rodney Sharp',
-    status: 'professional',
-    designation: 'Cost Accountant',
-    email: 'dcrossman3@google.co.jp'
-  }
-]
-
-const statusObj = {
-  applied: { color: 'info' },
-  rejected: { color: 'error' },
-  current: { color: 'primary' },
-  resigned: { color: 'warning' },
-  professional: { color: 'success' }
-}
 
 const DashboardTable = (props) => {
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-  
-    return date.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-    });
+  const clickRow = (e,_id) => {
+    e.preventDefault()
+    window.location.href = `/pages/admin/show-stock?_id=${_id}`
   }
-  
   return (
     <Card>
       <TableContainer>
         <Table sx={{ minWidth: 800 }} aria-label='table in dashboard'>
           <TableHead>
             <TableRow>
-              <TableCell>Session IP</TableCell>
-              <TableCell>Session Agent</TableCell>
-              <TableCell>Session Created At</TableCell>
-              <TableCell>Session User</TableCell>
+              <TableCell>Code</TableCell>
+              <TableCell>Name</TableCell>
+              <TableCell>Volume</TableCell>
+              <TableCell>Open</TableCell>
+              <TableCell>Close</TableCell>
+              <TableCell>High</TableCell>
+              <TableCell>Low</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {props.data.map(row => (
-              <TableRow hover key={row.name} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
-                <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>{row.sessionIp}</TableCell>
-                <TableCell>{row.sessionAgent}</TableCell>
-                <TableCell>{formatDate(row.sessionCreatedAt)}</TableCell>
-                <TableCell>{row.sessionUser}</TableCell>
+              <TableRow hover key={row._id} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
+                <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>{row.name}</TableCell>
+                <TableCell sx={{ py: theme => `${theme.spacing(0.5)} !important` }}>{row._id}</TableCell>
+                <TableCell>{row.volume}</TableCell>
+                <TableCell>{parseFloat(row.open.toFixed(4))}$</TableCell>
+                <TableCell>{parseFloat(row.close.toFixed(4))}$</TableCell>
+                <TableCell>{parseFloat(row.high.toFixed(4))}$</TableCell>
+                <TableCell>{parseFloat(row.low.toFixed(4))}$</TableCell>
+                <TableCell><Link onClick={(e) => clickRow(e,row._id)}>more...</Link></TableCell>
               </TableRow>
             ))}
           </TableBody>

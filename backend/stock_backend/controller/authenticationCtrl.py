@@ -46,20 +46,23 @@ class Authorization:
                     user['_id']=id
                 
                 user = users[0]
-                password = str(values['password'])
-                bytes = password.encode('utf-8')
-                result = bcrypt.checkpw(bytes,user['password'])
-                if result:
-                    ts = int(time.time())
-                    access_token_content = {
-                        "username": user['_id'],
-                        "issual_time": ts,
-                        "expire_time" : ts+ (7 * 24 * 60 * 60)
-                    }
-                    token = jwt.encode(access_token_content,SECRET,algorithm="HS512")
-                    return user,token
+                if user['is_active']:
+                    password = str(values['password'])
+                    bytes = password.encode('utf-8')
+                    result = bcrypt.checkpw(bytes,user['password'])
+                    if result:
+                        ts = int(time.time())
+                        access_token_content = {
+                            "username": user['_id'],
+                            "issual_time": ts,
+                            "expire_time" : ts+ (7 * 24 * 60 * 60)
+                        }
+                        token = jwt.encode(access_token_content,SECRET,algorithm="HS512")
+                        return user,token
+                    else:
+                        raise Exception(f"invalid username of password")     
                 else:
-                    raise Exception(f"invalid username of password")     
+                    raise Exception(f"user have been deleted")    
             else:
                 raise Exception(f"invalid username of password")
             

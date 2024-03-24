@@ -31,7 +31,7 @@ class Signup(APIView):
                         "message":"succesfully registered"
                     },
                     "body":{
-                        "data" : user
+                        "user" : user
                         
                     }
                 }

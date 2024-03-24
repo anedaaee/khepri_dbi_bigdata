@@ -16,7 +16,7 @@ class User(APIView):
                     "success":True,
                     "message":"succesfull,"
                 },
-                "data":{
+                "body":{
                     "type":"object",
                     "user":user
                 }

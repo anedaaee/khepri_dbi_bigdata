@@ -39,6 +39,11 @@ const Card = styled(MuiCard)(({ theme }) => ({
 }))
 
 
+const LinkStyled = styled('a')(({ theme }) => ({
+  fontSize: '0.875rem',
+  textDecoration: 'none',
+  color: theme.palette.primary.main
+}))
 
 const LoginPage = () => {
   const [error,setError] = useState('')
@@ -53,8 +58,8 @@ const LoginPage = () => {
 
   const fetchData = async() => {
     try{
-      if(localStorage.getItem('authToken-stock')){
-        
+      if(localStorage.getItem('authToken-khepri')){
+        window.location.href = '/pages/admin'
       }else{
         setLoading(false)
       }
@@ -87,25 +92,11 @@ const LoginPage = () => {
     setButtonLoading(true)
     e.preventDefault()
     try{
-      const result = await api('post',`/Account/Login?username=${values.username}&password=${values.password}`,{})
-      
-      if(result.error){
-        setError(result.message)
-        
-      }
-      
-      
-      localStorage.setItem('authToken-oilyfan',result.data.token)
-      themeConfig.admin = result.data.adminPrivilage
-      
-      if(result.data.adminPrivilage){
-        window.location.href = '/pages/admin'
-      }else{
-        window.location.href = '/pages/user'
-      }
-      console.log(result);
-      
-      
+      const result = await api('post',`/auth/login`,{_id:values.username,password:values.password})
+         
+      localStorage.setItem('authToken-khepri',result.token)
+      window.location.href = '/pages/admin'
+          
     }catch(err){
 
     }
@@ -119,7 +110,7 @@ const LoginPage = () => {
         (
           <div style={{width:'100%',display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center'}}>
               <img src='/loading.gif' alt='loading' style={{width:'20%'}}/> 
-              <h1 style={{color:'#ff5358'}}>Welcome to Oilyfan...</h1>
+              <h1 style={{color:'#ff5358'}}>Welcome to Khepri...</h1>
               <p style={{color:'#ff5358'}}>Loading...</p>
             </div>
         ):(
@@ -185,6 +176,16 @@ const LoginPage = () => {
                   >
                     Login
                   </LoadingButton> 
+                  <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
+                    <Typography variant='body2' sx={{ marginRight: 2 }}>
+                      Don't have an account?
+                    </Typography>
+                    <Typography variant='body2'>
+                      <Link passHref href='/pages/register'>
+                        <LinkStyled>Sign up instead</LinkStyled>
+                      </Link>
+                    </Typography>
+                  </Box>
                   <Typography variant='body2' style={{color:'red'}}>{error}</Typography>
                 </form>
               </CardContent>

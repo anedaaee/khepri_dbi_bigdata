@@ -32,9 +32,10 @@ const Dashboard = () => {
 
   const fetchData = async() => {
     try{
-      const result = await api('get',`/Account/GetDashboardInfo?token=${localStorage.getItem('authToken-oilyfan')}`,{})
+      const result = await api('get',`/stock/getStocks`,{},true)
       if(result){
-        setData(result.data.data)
+        console.log(result.stock);
+        setData(result.stock)
       }
     }catch(err){
 
@@ -64,52 +65,16 @@ const Dashboard = () => {
         (
           <ApexChartWrapper>
             <Grid container spacing={6}>
-              <Grid item xs={12} md={16}>
-                <Grid item xs={12}>
-                  <Typography variant='h5'>   
-                      <Link>
-                        System Overview
-                    </Link>
-                  </Typography>
-                  <br/>
-                </Grid>
-                <StatisticsCard data={data}/>
-              </Grid>
-              <Grid item xs={12} md={6} lg={6}>
-                <TotalEarning data={data}/>
-              </Grid>
-              <Grid item xs={12} md={6} lg={6}>
-                <Grid container spacing={6}>
-                  <Grid item xs={6}>
-                    <CardStatisticsVerticalComponent
-                      stats={data.nOfOrders}
-                      icon={<Poll />}
-                      color='success'
-                      title='Number Of Orders'
-                      subtitle='All Record'
-                    />
-                  </Grid>
-                  <Grid item xs={6}>
-                    <CardStatisticsVerticalComponent
-                      stats={data.nOfUsers}
-                      title='Number Of User'
-                      color='secondary'
-                      subtitle='All Record'
-                      icon={<Account />}
-                    />
-                  </Grid>
-                </Grid>
-              </Grid>
               <Grid item xs={12}>
                 <Grid item xs={12}>
                   <Typography variant='h5'>
                     <Link>
-                      Active Session
+                      Stocks Table
                     </Link>
                   </Typography>
                   <br/>
                 </Grid>
-                <Table data={data.sessionData}/>
+                <Table data={data}/>
               </Grid>
             </Grid>
           </ApexChartWrapper>

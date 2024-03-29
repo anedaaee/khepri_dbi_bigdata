@@ -4,6 +4,9 @@ from DWH_Facts.average_fact import AverageFact
 from DWH_Facts.variance_fact import VarianceFact
 from DWH_Facts.middle_fact import MiddleFact
 from DWH_Facts.mode_fact import ModeFact
+from DWH_Facts.RSI_SMA_fact import RSI_SMA_Fact
+from DWH_Facts.CMD_ADL_OBV_fact import CMD_ADL_OBV_Fact
+from DWH_Facts.stochastics_fact import Stochastics_fact
 
 import csv
 
@@ -19,6 +22,10 @@ class UpdateDWH:
         self.variance_fact = VarianceFact(khepri_db=self.khepri_db,khepri_dbw=self.khepri_dwh,stocks_data=self.stocks_data,date_plans=self.date_plans)
         self.middle_fact = MiddleFact(khepri_db=self.khepri_db,khepri_dbw=self.khepri_dwh,stocks_data=self.stocks_data,date_plans=self.date_plans)
         self.mode_fact = ModeFact(khepri_db=self.khepri_db,khepri_dbw=self.khepri_dwh,stocks_data=self.stocks_data,date_plans=self.date_plans)
+        self.RSI_SMA_fact = RSI_SMA_Fact(khepri_db=self.khepri_db,khepri_dbw=self.khepri_dwh,stocks_data=self.stocks_data)
+        self.CMD_ADL_OBV_fact = CMD_ADL_OBV_Fact(khepri_db=self.khepri_db,khepri_dbw=self.khepri_dwh,stocks_data=self.stocks_data)
+        self.stochastics_fact = Stochastics_fact(khepri_db=self.khepri_db,khepri_dbw=self.khepri_dwh,stocks_data=self.stocks_data,date_plans=self.date_plans)
+        
         
     def read_stocks_data(self):
         try:
@@ -39,6 +46,9 @@ class UpdateDWH:
             self.variance_fact.start_calculate()
             self.middle_fact.start_calculate()
             self.mode_fact.start_calculate()
+            self.RSI_SMA_fact.start_calculate()
+            self.CMD_ADL_OBV_fact.start_calculate()
+            self.stochastics_fact.start_calculate()
         except Exception as e:
             raise Exception(f" UpdateDWH update {str(e)}")
         

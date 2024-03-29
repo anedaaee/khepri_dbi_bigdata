@@ -54,7 +54,7 @@ class ModeFact:
             volume = volume[0]['Volume']
             stock_data['volume'] = volume
             
-            query = """INSERT INTO khepri_dwh.mode_d_stock
+            query = """INSERT INTO khepri_dwh.average_middle_mode_variance_d_stock
                         ( stock_code, stock_name, stock_volume)
                         VALUES(%s, %s, %s);"""
             
@@ -70,7 +70,7 @@ class ModeFact:
         try:
         
             
-            query = """INSERT INTO khepri_dwh.mode_d_date
+            query = """INSERT INTO khepri_dwh.average_middle_mode_variance_d_date
                         (create_ad, start_date, end_date, date_group)
                         VALUES( %s, %s, %s, %s);"""
                         
@@ -172,9 +172,9 @@ class ModeFact:
         
     def insertFact(self,fact_data):
         try:
-            query = """INSERT INTO khepri_dwh.mode_f
-                        (stock_id, date_id, `open`, `close`, high, low)
-                        VALUES(%s, %s, %s, %s, %s, %s);"""
+            query = """INSERT INTO khepri_dwh.average_middle_mode_variance_f
+                        (stock_id, date_id, `open`, `close`, high, low,fact_detail_id)
+                        VALUES(%s, %s, %s, %s, %s, %s,3);"""
         
             id = self.khepri_dbw.insert_return_id(query=query,data=[
                 fact_data['stock_id'],
@@ -190,9 +190,9 @@ class ModeFact:
         
     def insertFactAgregate(self,fact_data):
         try:
-            query = """INSERT INTO khepri_dwh.mode_aggr
-                        ( stock_id, date_id, `open`, `close`)
-                        VALUES(%s, %s, %s, %s);"""
+            query = """INSERT INTO khepri_dwh.average_middle_mode_variance_aggr_open_close
+                        ( stock_id, date_id, `open`, `close`,fact_detail_id)
+                        VALUES(%s, %s, %s, %s,3);"""
                         
             id = self.khepri_dbw.insert_return_id(query=query,data=[
                 fact_data['stock_id'],

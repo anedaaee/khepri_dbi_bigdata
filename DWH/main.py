@@ -12,7 +12,7 @@ def main(argv):
     try:
         update.update()
     except Exception as e:
-                raise Exception(f" main {str(e)}")
+        raise Exception(f" main {str(e)}")
     
 if __name__ == '__main__':
     try:

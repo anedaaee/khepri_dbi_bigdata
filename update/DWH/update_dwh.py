@@ -29,7 +29,7 @@ class UpdateDWH:
         
     def read_stocks_data(self):
         try:
-            file = open("./db_list.csv")
+            file = open("DWH/db_list.csv")
             csvreader = csv.reader(file)
             header = next(csvreader)
             rows = []

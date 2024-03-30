@@ -1,7 +1,10 @@
+import sys
+
+sys.path.append('update_mongo_DB')
+
 from src.database_khepri_db import KhepriDB
 from src.mongo_db import stock_collection,users_collection
 from src.update_mongo import UpdateMongo
-import sys
 
 
 def main():

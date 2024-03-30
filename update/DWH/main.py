@@ -1,9 +1,11 @@
 import sys
+sys.path.append('DWH')
+
 from database_khperi_dwh import KhepriDWH
 from database_khepri_db import KhepriDB
 from update_dwh import UpdateDWH
 
-def main(argv):
+def main():
     
     khepri_db = KhepriDB()
     khepri_dwh = KhepriDWH()
@@ -16,6 +18,6 @@ def main(argv):
     
 if __name__ == '__main__':
     try:
-        sys.exit(main(sys.argv))
+        sys.exit(main())
     except Exception as e:
         print(f"Error happend at {e}")

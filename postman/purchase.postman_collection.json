@@ -1,0 +1,84 @@
+{
+	"info": {
+		"_postman_id": "ab562941-64a2-46a8-ad2f-1f2086119963",
+		"name": "purchase",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32722295"
+	},
+	"item": [
+		{
+			"name": "purchase",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"stock\":\"AAPL\",\n    \"number\":13\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/purchases/purchase",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"purchases",
+						"purchase"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sale",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"stock\":\"AAPL\",\n    \"number\":2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/purchases/sale",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"purchases",
+						"sale"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,92 @@
+{
+	"info": {
+		"_postman_id": "b90a3548-c0e1-4093-ab87-811d2eb89771",
+		"name": "stock",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32722295"
+	},
+	"item": [
+		{
+			"name": "getStocks",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/stock/getStocks",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"stock",
+						"getStocks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getStockById",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/stock/getStockById?_id=AAPL&lower_date=2020-03-01&upper_date=2023-03-01",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"stock",
+						"getStockById"
+					],
+					"query": [
+						{
+							"key": "_id",
+							"value": "AAPL"
+						},
+						{
+							"key": "lower_date",
+							"value": "2020-03-01"
+						},
+						{
+							"key": "upper_date",
+							"value": "2023-03-01"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
